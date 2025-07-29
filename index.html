@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днём Рождения!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto+Slab:wght@400;700&family=Pacifico&family=Montserrat:wght@400;600&family=Dancing+Script:wght@400;700&family=Great+Vibes&display=swap"
+          rel="stylesheet">
+    <style>
+        body {
+            color: #1a3c34;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer {
+            min-height: 30vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .heart-burst {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: cover;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: heartBurst 1s ease-out forwards;
+        }
+
+        @keyframes heartBurst {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(2) translate(calc(150px * var(--rand-x)), calc(150px * var(--rand-y)));
+                opacity: 0;
+            }
+        }
+
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            animation: float 3s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        .heart {
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="pink"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: cover;
+        }
+
+        .star {
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="yellow"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>');
+            background-size: cover;
+        }
+
+        .flower {
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="purple"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm-3-3h6c.55 0 1-.45 1-1s-.45-1-1-1H9c-.55 0-1 .45-1 1s.45 1 1 1zm3-17C7.58 2 4 5.58 4 10c0 1.1.9 2 2 2s2-.9 2-2c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2s.9 2 2 2 2-.9 2-2c0-4.42-3.58-8-8-8z"/></svg>');
+            background-size: cover;
+        }
+
+        .cake {
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="chocolate"><path d="M12 2a2 2 0 0 0-2 2v1H8V4a2 2 0 0 0-4 0v2H2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6h-2V4a2 2 0 0 0-4 0v1h-2V4a2 2 0 0 0-2-2zm-2 15H8v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>');
+            background-size: cover;
+        }
+
+        .balloon {
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue"><path d="M12 2c-3.87 0-7 3.13-7 7 0 2.5 1.3 4.7 3.3 6l-1.4 5.2c-.1.4.2.8.6.8h4.8c.4 0 .7-.4.6-.8l-1.4-5.2c2-1.3 3.3-3.5 3.3-6 0-3.87-3.13-7-7-7zm0 2c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z"/></svg>');
+            background-size: cover;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        .beating-heart {
+            width: 150px;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: cover;
+            animation: beat 1.2s infinite ease-in-out;
+        }
+
+        @keyframes beat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        .heart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            max-width: 90%;
+            overflow: visible;
+        }
+
+        .heart-row {
+            display: flex;
+            justify-content: center;
+            gap: 200px;
+        }
+
+        @media (max-width: 600px) {
+            .heart-row {
+                gap: 50px;
+            }
+        }
+
+        /* Стили для каждого блока */
+        #greeting {
+            background: linear-gradient(135deg, #38b2ac 0%, #2c7a7b 100%);
+            font-family: 'Lobster', cursive;
+            color: #e6fffa;
+        }
+
+        #poem {
+            background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Pacifico', cursive;
+            color: #ffffff;
+        }
+
+        #love {
+            background: linear-gradient(135deg, #26a69a 0%, #00796b 100%);
+            font-family: 'Great Vibes', cursive;
+            color: #f0f4f8;
+        }
+
+        #reasons {
+            background: linear-gradient(135deg, #4fd1c5 0%, #319795 100%);
+            font-family: 'Roboto Slab', serif;
+            color: #edf2f7;
+        }
+
+        #reasons ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #reasons li {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        #reasons li::before {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="pink" width="20px" height="20px"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #horoscope {
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Montserrat', sans-serif;
+            color: #2d3748;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
+            font-family: 'Dancing Script', cursive;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+<!-- Поздравление -->
+<section id="greeting" class="fade-in">
+    <h1 class="text-7xl font-bold">С Днём Рождения!!!</h1>
+</section>
+
+<!-- Стихотворение -->
+<section id="poem" class="fade-in">
+    <h2 class="text-5xl font-semibold mb-5">Стих посвященный тебе</h2>
+    <p class="text-2xl">
+        <br>
+        Бабушка с утра в делах —<br>
+        Пыль гоняет в облаках!<br>
+        Шваброй машет, как ракетой,<br>
+        Чистота — её предмет!<br>
+        <br>
+        Если вдруг нас "поприжала" —<br>
+        Значит, день не задался.<br>
+        Но мы знаем: шум и гром —<br>
+        Это просто стиль её!<br>
+        <br>
+        Любим мы её без меры,<br>
+        Даже в грозную погоду.<br>
+        Ведь под грозной пеленой<br>
+        Скрыто сердце золотое!<br>
+    </p>
+</section>
+
+<!-- Мы тебя очень любим -->
+<section id="love" class="fade-in">
+    <h2 class="text-7xl font-semibold mb-10">Мы тебя очень сильно любим</h2>
+    <div class="heart-container">
+        <div class="heart-row">
+            <div class="beating-heart"></div>
+            <div class="beating-heart"></div>
+        </div>
+        <div class="heart-row">
+            <div class="beating-heart"></div>
+        </div>
+        <div class="heart-row">
+            <div class="beating-heart"></div>
+            <div class="beating-heart"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Причины, почему мы её любим -->
+<section id="reasons" class="fade-in">
+    <h2 class="text-5xl font-semibold mb-4">5 причин, почему наша жизнь была бы кошмаром без тебя<br><br></h2>
+
+    <ul class="list-disc list-inside text-2xl space-y-5 max-w-md">
+        <li>Твоя забота согревает нас каждый день!</li>
+        <li>Твоя еда — это просто чудо!</li>
+        <li>Ты всегда знаешь, как нас порадовать!</li>
+        <li>Ты самая добрая!</li>
+        <li>Ты самый лучший мотиватор!</li>
+    </ul>
+</section>
+
+<!-- Гороскоп -->
+<section id="horoscope" class="fade-in">
+    <h2 class="text-5xl font-semibold mb-4">Гороскоп на следующий год для львицы</h2>
+
+    <p class="text-2xl max-w-lg mb-5">Дорогая наша царственная домоуправница! Год обещает быть насыщенным: вы продолжите править этой квартирой с
+        железной шваброй в одной руке и сковородкой – в другой. Но звезды предупреждают: иногда стоит делегировать
+    полномочия (например, внукам, которые «опять ничего не делают»).</p>
+
+    <h3 class="text-4xl font-semibold mb-4 mt-5">Карьера:</h3>
+    <p class="text-2xl max-w-lg mb-5">Ваш титул «Главная по дому» никто не оспорит, но в этом году возможен неожиданный карьерный рост –
+        например, вас могут назначить ответственной за контроль громкости телевизора во время сериалов.</p>
+
+    <h3 class="text-4xl font-semibold mb-4 mt-5">Финансы:</h3>
+    <p class="text-2xl max-w-lg mb-5">Год удачен для находок – в карманах старых штанов вас ждут забытые 500 рублей. Главное – не дать внукам
+        их «случайно» найти.</p>
+
+    <h3 class="text-4xl font-semibold mb-4 mt-5">Здоровье:</h3>
+    <p class="text-2xl max-w-lg mb-5">Спорт будет на пике популярности – особенно такие дисциплины, как «Бег с тапком за внуками» и «Тяжелая
+        атлетика (поднять сумку с продуктами не касаясь ее)».</p>
+
+    <h3 class="text-4xl font-semibold mb-4 mt-5">Совет года:</h3>
+    <p class="text-2xl max-w-lg mb-5">Когда захочется порычать – вспомните, что вы не просто Лев, вы – Львица с большим сердцем. Ну а если
+        не поможет – просто порычите. Внуки потом сами приползут с пустыми тарелками.</p>
+
+    <h3 class="text-4xl font-semibold mb-4 mt-5">Главный прогноз:</h3>
+    <p class="text-2xl max-w-lg mb-5">Вас ждет море любви, немного хаоса и гордость за то, что именно вы держите этот дом в тепле и
+        порядке. Но если устанете – помните: диван и пульт от телевизора всегда к вашим услугам!</p>
+</section>
+
+<!-- Футер -->
+<footer class="fade-in">
+    <p class="text-3xl">С любовью, внучата &copy; 2025</p>
+</footer>
+
+<script>
+    // Анимация появления блоков при прокрутке
+    document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {threshold: 0.1});
+
+        elements.forEach(element => observer.observe(element));
+
+        // Генерация плавающих элементов (сердечки, звёздочки, цветочки, тортики, шарики)
+        const sections = ['greeting', 'poem', 'love', 'reasons', 'horoscope', 'footer'];
+        const shapes = ['heart', 'star', 'flower', 'cake', 'balloon'];
+
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            for (let i = 0; i < 15; i++) {
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                const element = document.createElement('div');
+                element.classList.add('floating-element', shape);
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.animationDelay = `${Math.random() * 3}s`;
+                element.style.transform = `scale(${0.8 + Math.random() * 0.7})`;
+                section.appendChild(element);
+            }
+        });
+    });
+
+    // Анимация взрыва сердец при клике
+    document.addEventListener('click', (e) => {
+        const heartCount = 10;
+        for (let i = 0; i < heartCount; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-burst');
+            heart.style.left = `${e.clientX}px`;
+            heart.style.top = `${e.clientY}px`;
+            heart.style.setProperty('--rand-x', Math.random() * 2 - 1);
+            heart.style.setProperty('--rand-y', Math.random() * 2 - 1);
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        }
+    });
+</script>
+</body>
+</html>
