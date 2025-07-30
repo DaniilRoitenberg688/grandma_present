@@ -164,19 +164,19 @@
         }
 
         #heart-1::after {
-            background-image: url('static/dad.jpg');
+            background-image: url('./static/dad.jpg');
         }
         #heart-2::after {
-            background-image: url('static/nika.jpg');
+            background-image: url('./static/nika.jpg');
         }
         #heart-3::after {
-            background-image: url('static/gosha.jpg');
+            background-image: url('./static/gosha.jpg');
         }
         #heart-4::after {
-            background-image: url('static/mom.jpg');
+            background-image: url('./static/mom.jpg');
         }
         #heart-5::after {
-            background-image: url('static/danya.jpg');
+            background-image: url('./static/danya.jpg');
         }
 
         .heart-row {
@@ -348,7 +348,7 @@
 
 <script>
     window.onload = function() {
-        var audio = new Audio('static/music.mp3');
+        var audio = new Audio('./static/music.mp3');
         audio.loop = true;
 
         // Попытка автовоспроизведения (может не сработать)
