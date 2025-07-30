@@ -152,6 +152,32 @@
             max-width: 90%;
             overflow: visible;
         }
+        .beating-heart::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            transform: translate(-33px, 38px);
+        }
+
+        #heart-1::after {
+            background-image: url('static/dad.jpg');
+        }
+        #heart-2::after {
+            background-image: url('static/nika.jpg');
+        }
+        #heart-3::after {
+            background-image: url('static/gosha.jpg');
+        }
+        #heart-4::after {
+            background-image: url('static/mom.jpg');
+        }
+        #heart-5::after {
+            background-image: url('static/danya.jpg');
+        }
 
         .heart-row {
             display: flex;
@@ -227,6 +253,7 @@
     </style>
 </head>
 <body>
+
 <!-- Поздравление -->
 <section id="greeting" class="fade-in">
     <h1 class="text-7xl font-bold">С Днём Рождения!!!</h1>
@@ -259,15 +286,15 @@
     <h2 class="text-7xl font-semibold mb-10">Мы тебя очень сильно любим</h2>
     <div class="heart-container">
         <div class="heart-row">
-            <div class="beating-heart"></div>
-            <div class="beating-heart"></div>
+            <div class="beating-heart" id="heart-1"></div>
+            <div class="beating-heart" id="heart-2"></div>
         </div>
         <div class="heart-row">
-            <div class="beating-heart"></div>
+            <div class="beating-heart" id="heart-3"></div>
         </div>
         <div class="heart-row">
-            <div class="beating-heart"></div>
-            <div class="beating-heart"></div>
+            <div class="beating-heart" id="heart-4"></div>
+            <div class="beating-heart" id="heart-5"></div>
         </div>
     </div>
 </section>
@@ -320,6 +347,20 @@
 </footer>
 
 <script>
+    window.onload = function() {
+        var audio = new Audio('static/music.mp3');
+        audio.loop = true;
+
+        // Попытка автовоспроизведения (может не сработать)
+        audio.play().catch(e => {
+            console.log("Автовоспроизведение заблокировано. Нужно действие пользователя.");
+        });
+
+        // Запуск по клику где угодно на странице
+        document.body.addEventListener('click', function() {
+            audio.play();
+        });
+    }
     // Анимация появления блоков при прокрутке
     document.addEventListener('DOMContentLoaded', () => {
         const elements = document.querySelectorAll('.fade-in');
